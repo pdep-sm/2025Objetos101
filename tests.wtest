@@ -1,22 +1,24 @@
 import dominio.*
 
+// Poder de Gandalf con distintas configuraciones
 test "Poder de Gandalf básico con báculo y vida 100" {
   assert.equals(2300, gandalf.poder())
 }
 
 test "Poder de Gandalf en peligro de vida con báculo y vida 10" {
-    gandalf.vida(10)
+  gandalf.vida(10)
   assert.equals(3800, gandalf.poder())
 }
 
 test "Poder de Gandalf básico con espada élfica y vida 100" {
-    gandalf.arma(espada)
-    assert.equals(2000, gandalf.poder())
+  gandalf.arma(espada)
+  assert.equals(2000, gandalf.poder())
 }
 
+// Poder de armas con distintos orígenes
 test "Poder de una espada humana con poder base de 10" {
-    espada.origen(humano)
-    assert.equals(100, espada.poder())
+  espada.origen(humano)
+  assert.equals(100, espada.poder())
 }
 
 test "Poder de una espada élfica con poder base de 10" {
@@ -24,6 +26,6 @@ test "Poder de una espada élfica con poder base de 10" {
 }
 
 test "Poder de una espada enano con poder base de 10" {
-    espada.origen(enano)
-    assert.equals(200, espada.poder())
+  espada.origen(enano)
+  assert.equals(200, espada.poder())
 }
