@@ -1,3 +1,5 @@
+import zonas.*
+
 // Gandalf, el gris, nuestro personaje principal
 object gandalf {
     var arma = baculo
@@ -15,6 +17,10 @@ object gandalf {
     method vida(nuevaVida) {
         vida = nuevaVida
     }
+
+    method vida() = vida
+
+    method puedePasar(zona) = zona.permitePasar(self)
 
 //  Dos versiones para el multiplicador de vida:
 //      Aprovechando que el if con else es una expresión:
