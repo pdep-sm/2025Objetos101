@@ -1,4 +1,6 @@
 import dominio.*
+import zonas.*
+import armas.*
 
 // Poder de Gandalf con distintas configuraciones
 test "Poder de Gandalf básico con báculo y vida 100" {
@@ -28,4 +30,28 @@ test "Poder de una espada élfica con poder base de 10" {
 test "Poder de una espada enano con poder base de 10" {
   espada.origen(enano)
   assert.equals(200, espada.poder())
+}
+
+
+test "Gandalf puede pasar por Lossarnch" {
+  assert.that(gandalf.puedePasar(lossarnch))
+}
+
+test "Gandalf puede pasar por Lebennin con poder 2300" {
+  assert.that(gandalf.puedePasar(lebennin))
+}
+
+test "Gandalf no puede pasar por Lebennin sin armas (arma nula )" {
+  gandalf.arma(noArma)
+  assert.notThat(gandalf.puedePasar(lebennin))
+}
+
+test "Gandalf no puede pasar por Minas Tirith con 60 de vida" {
+  gandalf.vida(60)
+  assert.notThat(gandalf.puedePasar(minasTirith))
+}
+
+test "Gandalf puede pasar por Minas Tirith con 61 de vida" {
+  gandalf.vida(61)
+  assert.that(gandalf.puedePasar(minasTirith))
 }
