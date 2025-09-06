@@ -2,56 +2,81 @@ import dominio.*
 import zonas.*
 import armas.*
 
-// Poder de Gandalf con distintas configuraciones
-test "Poder de Gandalf básico con báculo y vida 100" {
-  assert.equals(2300, gandalf.poder())
-}
+describe "Pruebas de entrega 1 de TP de Tierra Media" {
+  const zonaImpasable = self.zona(false)
 
-test "Poder de Gandalf en peligro de vida con báculo y vida 10" {
-  gandalf.vida(10)
-  assert.equals(3800, gandalf.poder())
-}
+  method zona(permitePasar) = 
+    object {
+      method permitePasar(persona) = permitePasar
+    }
 
-test "Poder de Gandalf básico con espada élfica y vida 100" {
-  gandalf.arma(espada)
-  assert.equals(2000, gandalf.poder())
-}
+  // Poder de Gandalf con distintas configuraciones
+  test "Poder de Gandalf básico con báculo y vida 100" {
+    assert.equals(2300, gandalf.poder())
+  }
 
-// Poder de armas con distintos orígenes
-test "Poder de una espada humana con poder base de 10" {
-  espada.origen(humano)
-  assert.equals(100, espada.poder())
-}
+  test "Poder de Gandalf en peligro de vida con báculo y vida 10" {
+    gandalf.vida(10)
+    assert.equals(3800, gandalf.poder())
+  }
 
-test "Poder de una espada élfica con poder base de 10" {
-  assert.equals(250, espada.poder())
-}
+  test "Poder de Gandalf básico con espada élfica y vida 100" {
+    gandalf.agregarArma(espada)
+    gandalf.quitarArma(baculo)
+    assert.equals(2000, gandalf.poder())
+  }
 
-test "Poder de una espada enano con poder base de 10" {
-  espada.origen(enano)
-  assert.equals(200, espada.poder())
-}
+  // Poder de armas con distintos orígenes
+  test "Poder de una espada humana con poder base de 10" {
+    espada.origen(humano)
+    assert.equals(100, espada.poder())
+  }
+
+  test "Poder de una espada élfica con poder base de 10" {
+    assert.equals(250, espada.poder())
+  }
+
+  test "Poder de una espada enano con poder base de 10" {
+    espada.origen(enano)
+    assert.equals(200, espada.poder())
+  }
 
 
-test "Gandalf puede pasar por Lossarnch" {
-  assert.that(gandalf.puedePasar(lossarnch))
-}
+  test "Gandalf puede pasar por Lossarnch" {
+    assert.that(gandalf.puedePasar(lossarnch))
+  }
 
-test "Gandalf puede pasar por Lebennin con poder 2300" {
-  assert.that(gandalf.puedePasar(lebennin))
-}
+  test "Gandalf puede pasar por Lebennin con poder 2300" {
+    assert.that(gandalf.puedePasar(lebennin))
+  }
 
-test "Gandalf no puede pasar por Lebennin sin armas (arma nula )" {
-  gandalf.arma(noArma)
-  assert.notThat(gandalf.puedePasar(lebennin))
-}
+  test "Gandalf no puede pasar por Lebennin sin armas (arma nula )" {
+    gandalf.quitarArma(baculo)
+    assert.notThat(gandalf.puedePasar(lebennin))
+  }
 
-test "Gandalf no puede pasar por Minas Tirith con 60 de vida" {
-  gandalf.vida(60)
-  assert.notThat(gandalf.puedePasar(minasTirith))
-}
+  test "Gandalf no puede pasar por Minas Tirith sin armas" {
+    gandalf.quitarArma(baculo)
+    assert.notThat(gandalf.puedePasar(minasTirith))
+  }
 
-test "Gandalf puede pasar por Minas Tirith con 61 de vida" {
-  gandalf.vida(61)
-  assert.that(gandalf.puedePasar(minasTirith))
+  test "Gandalf puede pasar por Minas Tirith con armas" {
+    assert.that(gandalf.puedePasar(minasTirith))
+  }
+
+  test "Gandalf puede pasar por Gondor" {
+    assert.that(gandalf.puedePasar(gondor))
+  }
+  test "Tom puede pasar por Gondor" {
+    assert.that(tomBombadil.puedePasar(gondor))
+  }
+
+  test "Gandalf no puede pasar por la zona impasable" {
+    assert.notThat(gandalf.puedePasar(zonaImpasable))
+  }
+
+  test "Tom puede pasar por la zona impasable" {
+    assert.that(tomBombadil.puedePasar(self.zona(false)))
+  }
+
 }
