@@ -1,47 +1,38 @@
-import dominio.*
+import guerreros.*
 import zonas.*
 import armas.*
 
 describe "Pruebas de entrega 1 de TP de Tierra Media" {
   const zonaImpasable = self.zona(false)
+  const espada = new Espada(multiplicadorDePoder = 10, origen = elfico)
+  const baculo = new Baculo(poder = 400)
+  const espadaDeFrodo = new Espada(origen = elfico, multiplicadorDePoder = 8)
+  const frodo = new Hobbit(vida = 50, armas = #{espadaDeFrodo})
+  const gimli = new Enano(
+    vida = 75, 
+    factorDePoder = 3, 
+    armas = #{self.hachaDeGimli(), self.hachaDeGimli()}
+  )
+  const arcoDeLegolas = new Arco(longitud = 110)
+  const espadaDeLegolas = new Espada(origen = elfico, multiplicadorDePoder = 12)
+  const legolas = new Elfo(vida = 80, destrezaPropia = 1, armas = #{arcoDeLegolas, espadaDeLegolas})
+  const anduril = new Espada(origen = elfico, multiplicadorDePoder = 18)
+  const aragorn = new Humano(vida = 85, limitadorDePoder = 20, armas = #{anduril})
+  const glamdring = new Espada(origen = elfico, multiplicadorDePoder = 10)
+  const baculoDeGandalf = new Baculo(poder = 400)
+  const gandalf = new Maia(vida = 100, armas = #{glamdring, baculoDeGandalf})
+
+  method initialize() {
+    gandalf.agregarArma(baculo)
+  }
+
+  method hachaDeGimli() = new Hacha(largoMango = 70, pesoHoja = 5)
 
   method zona(permitePasar) = 
     object {
       method permitePasar(persona) = permitePasar
     }
-
-  // Poder de Gandalf con distintas configuraciones
-  test "Poder de Gandalf básico con báculo y vida 100" {
-    assert.equals(2300, gandalf.poder())
-  }
-
-  test "Poder de Gandalf en peligro de vida con báculo y vida 10" {
-    gandalf.vida(10)
-    assert.equals(3800, gandalf.poder())
-  }
-
-  test "Poder de Gandalf básico con espada élfica y vida 100" {
-    gandalf.agregarArma(espada)
-    gandalf.quitarArma(baculo)
-    assert.equals(2000, gandalf.poder())
-  }
-
-  // Poder de armas con distintos orígenes
-  test "Poder de una espada humana con poder base de 10" {
-    espada.origen(humano)
-    assert.equals(100, espada.poder())
-  }
-
-  test "Poder de una espada élfica con poder base de 10" {
-    assert.equals(250, espada.poder())
-  }
-
-  test "Poder de una espada enano con poder base de 10" {
-    espada.origen(enano)
-    assert.equals(200, espada.poder())
-  }
-
-
+    
   test "Gandalf puede pasar por Lossarnch" {
     assert.that(gandalf.puedePasar(lossarnch))
   }

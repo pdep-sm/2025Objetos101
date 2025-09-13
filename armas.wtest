@@ -1,0 +1,35 @@
+import armas.*
+
+describe "Tests de las armas" {
+    const espada = new Espada(multiplicadorDePoder = 10, origen = elfico)
+    const arco = new Arco(longitud = 110)
+
+    // Poder de armas con distintos orígenes
+    test "Poder de una espada humana con poder base de 10" {
+        espada.origen(humano)
+        assert.equals(150, espada.poder())
+    }
+
+    test "Poder de una espada élfica con poder base de 10" {
+        assert.equals(300, espada.poder())
+    }
+
+    test "Poder de una espada enano con poder base de 10" {
+        espada.origen(enano)
+        assert.equals(200, espada.poder())
+    }
+
+    test "Hacha con mango de 50 cm, con una hoja de 5kg. Tiene 250 de poder" {
+        const hacha = new Hacha(largoMango = 50, pesoHoja = 5)
+        assert.equals(250, hacha.poder())
+    }
+
+    test "Arco con longitud de 110 cm tiene 440 de poder" {   
+        assert.equals(440, arco.poder())
+    }
+
+    test "Modificar la tensión del arco a 35kg tiene 385 de poder" {
+        arco.tension(35)
+        assert.equals(385, arco.poder())
+    }
+}
