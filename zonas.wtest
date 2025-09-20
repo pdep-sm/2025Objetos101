@@ -5,7 +5,6 @@ import armas.*
 describe "Pruebas de entrega 1 de TP de Tierra Media" {
   const zonaImpasable = self.zona(false)
   const espada = new Espada(multiplicadorDePoder = 10, origen = elfico)
-  const baculo = new Baculo(poder = 400)
   const espadaDeFrodo = new Espada(origen = elfico, multiplicadorDePoder = 8)
   const frodo = new Hobbit(vida = 50, armas = #{espadaDeFrodo})
   const gimli = new Enano(
@@ -23,7 +22,7 @@ describe "Pruebas de entrega 1 de TP de Tierra Media" {
   const gandalf = new Maia(vida = 100, armas = #{glamdring, baculoDeGandalf})
 
   method initialize() {
-    gandalf.agregarArma(baculo)
+    gandalf.agregarArma(baculoDeGandalf)
   }
 
   method hachaDeGimli() = new Hacha(largoMango = 70, pesoHoja = 5)
@@ -41,13 +40,15 @@ describe "Pruebas de entrega 1 de TP de Tierra Media" {
     assert.that(gandalf.puedePasar(lebennin))
   }
 
-  test "Gandalf no puede pasar por Lebennin sin armas (arma nula )" {
-    gandalf.quitarArma(baculo)
+  test "Gandalf no puede pasar por Lebennin sin armas (armas empty)" {
+    gandalf.quitarArma(baculoDeGandalf)
+    gandalf.quitarArma(glamdring)
     assert.notThat(gandalf.puedePasar(lebennin))
   }
 
   test "Gandalf no puede pasar por Minas Tirith sin armas" {
-    gandalf.quitarArma(baculo)
+    gandalf.quitarArma(baculoDeGandalf)
+    gandalf.quitarArma(glamdring)
     assert.notThat(gandalf.puedePasar(minasTirith))
   }
 
