@@ -56,6 +56,10 @@ describe "Pruebas de entrega 1 de TP de Tierra Media" {
     assert.that(gandalf.puedePasar(minasTirith))
   }
 
+  test "Frodo puede pasar por Minas Tirith con armas" {
+    assert.that(frodo.puedePasar(minasTirith))
+  }
+
   test "Gandalf puede pasar por Gondor" {
     assert.that(gandalf.puedePasar(gondor))
   }

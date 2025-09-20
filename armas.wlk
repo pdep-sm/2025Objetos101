@@ -7,12 +7,6 @@ class Baculo {
   const property poder  
 }
 
-// Daga
-class Daga {
-    // TODO
-}
-
-
 /*
 Arco: Los arcos se fabrican con una tensión en kilogramos que es igual para 
 todos (y que debería ser posible de cambiar) y un largo en cm, propio del arco.
@@ -59,6 +53,12 @@ class Espada {
     method poder() = origen.poder() * multiplicadorDePoder
 }
 
+// Daga
+class Daga inherits Espada {
+
+    override method poder() = super() / 2
+}
+
 // Posibles orígenes
 object elfico {
     method poder() = 30
@@ -71,3 +71,6 @@ object humano {
 object enano {
     method poder() = 20
 }
+
+
+const sting = new Daga(origen = elfico, multiplicadorDePoder = 1)
